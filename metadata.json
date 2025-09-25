@@ -1,0 +1,5 @@
+{
+  "name": "Zenith RSS Reader",
+  "description": "A modern, dark-themed RSS aggregator that allows you to import feeds via OPML, read posts in a clean interface, and cache content for offline access.",
+  "requestFramePermissions": []
+}
