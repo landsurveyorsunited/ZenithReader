@@ -31,6 +31,9 @@ export default function PostModal({ open, post, onClose }: PostModalProps) {
   if (!open || !post) return null;
 
   const sanitizedContent = DOMPurify.sanitize(post.content);
+  // Check if the main image is already part of the content to avoid duplication
+  const showExplicitImage = post.firstImage && !sanitizedContent.includes(`src="${post.firstImage}"`);
+
   const formattedDate = new Date(post.isoDate).toLocaleString(undefined, {
       dateStyle: 'medium',
       timeStyle: 'short',
@@ -69,7 +72,7 @@ export default function PostModal({ open, post, onClose }: PostModalProps) {
         </header>
 
         <div className="flex-grow p-6 overflow-y-auto prose prose-invert prose-sm md:prose-base max-w-none prose-img:rounded-lg prose-a:text-blue-400 hover:prose-a:text-blue-300">
-          {post.firstImage && <img src={post.firstImage} alt="" className="w-full h-auto mb-4 rounded-lg" />}
+          {showExplicitImage && <img src={post.firstImage} alt="" className="w-full h-auto mb-4 rounded-lg" />}
           <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
         </div>
 

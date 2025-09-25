@@ -84,6 +84,10 @@ export default function App() {
   }, [posts, searchQuery]);
 
   const postsToDisplay = useMemo(() => {
+    // A displayCount of 999 is used as "All"
+    if (displayCount >= 999) {
+        return filteredPosts;
+    }
     return filteredPosts.slice(0, displayCount);
   }, [filteredPosts, displayCount]);
 
@@ -195,7 +199,7 @@ export default function App() {
     }
 
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-4 md:p-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 md:gap-6 md:p-6">
         {postsToDisplay.map((post) => (
           <PostCard key={post.guid} post={post} onOpen={handleOpenPost} />
         ))}
@@ -217,8 +221,6 @@ export default function App() {
         onOpenSettings={() => setIsSettingsOpen(true)}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        displayCount={displayCount}
-        onDisplayCountChange={handleDisplayCountChange}
         isOnline={isOnline}
         isDataStale={isDataStale}
         refreshingFeedUrl={refreshingFeedUrl}
@@ -269,6 +271,8 @@ export default function App() {
         onAddFeed={addFeed}
         onRemoveFeed={removeFeed}
         onImportOPML={importFromOPML}
+        displayCount={displayCount}
+        onDisplayCountChange={handleDisplayCountChange}
       />
     </div>
   );

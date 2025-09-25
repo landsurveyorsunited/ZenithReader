@@ -11,9 +11,11 @@ interface SettingsModalProps {
   onAddFeed: (url: string) => Promise<void>;
   onRemoveFeed: (id: string) => void;
   onImportOPML: (url: string) => Promise<void>;
+  displayCount: number;
+  onDisplayCountChange: (count: number) => void;
 }
 
-export default function SettingsModal({ open, onClose, feeds, onAddFeed, onRemoveFeed, onImportOPML }: SettingsModalProps) {
+export default function SettingsModal({ open, onClose, feeds, onAddFeed, onRemoveFeed, onImportOPML, displayCount, onDisplayCountChange }: SettingsModalProps) {
   const [feedUrl, setFeedUrl] = useState('');
   const [opmlUrl, setOpmlUrl] = useState('');
   const [isAdding, setIsAdding] = useState(false);
@@ -63,6 +65,7 @@ export default function SettingsModal({ open, onClose, feeds, onAddFeed, onRemov
     }
   };
 
+  const displayOptions = [12, 24, 48, 999]; // 999 for "All"
 
   if (!open) return null;
 
@@ -75,7 +78,7 @@ export default function SettingsModal({ open, onClose, feeds, onAddFeed, onRemov
         className="relative w-full max-w-md bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl flex flex-col animate-slide-in max-h-[80vh]"
       >
         <header className="flex-shrink-0 p-4 border-b border-gray-700 flex justify-between items-center">
-          <h2 className="text-lg font-semibold">Manage Feeds</h2>
+          <h2 className="text-lg font-semibold">Settings</h2>
           <button onClick={onClose} className="p-2 rounded-full text-gray-400 hover:bg-gray-700 hover:text-white transition-colors" aria-label="Close settings">
             <CloseIcon className="w-5 h-5" />
           </button>
@@ -133,6 +136,25 @@ export default function SettingsModal({ open, onClose, feeds, onAddFeed, onRemov
                 <p className="text-sm text-gray-500">No feeds added yet.</p>
             )}
           </div>
+
+          <div>
+            <h3 className="text-md font-medium text-gray-200 mb-2">View Options</h3>
+            <div className="flex items-center gap-2">
+              <label htmlFor="display-count" className="text-sm text-gray-300">Posts per feed:</label>
+              <select
+                id="display-count"
+                name="display-count"
+                value={displayCount}
+                onChange={(e) => onDisplayCountChange(Number(e.target.value))}
+                className="bg-gray-900 border border-gray-600 rounded-md py-1 pl-2 pr-8 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none appearance-none"
+              >
+                {displayOptions.map(opt => (
+                  <option key={opt} value={opt}>{opt === 999 ? 'All' : opt}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>,
