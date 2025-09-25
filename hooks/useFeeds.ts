@@ -14,6 +14,7 @@ export function useFeeds() {
   const [error, setError] = useState<string | null>(null);
   const [isDataStale, setIsDataStale] = useState<boolean>(false);
   const [refreshingFeedUrl, setRefreshingFeedUrl] = useState<string | null>(null);
+  const [readPostGuids, setReadPostGuids] = useState<Set<string>>(new Set());
 
   const selectFeed = useCallback(async (feed: Feed | null) => {
     if (!feed) {
@@ -103,7 +104,11 @@ export function useFeeds() {
   useEffect(() => {
     const loadInitialData = async () => {
       setLoading(true);
-      const savedFeeds = await storage.getFeeds();
+      const [savedFeeds, savedReadGuids] = await Promise.all([
+        storage.getFeeds(),
+        storage.getReadPostGuids(),
+      ]);
+      setReadPostGuids(new Set(savedReadGuids));
 
       if (savedFeeds.length > 0) {
         setFeeds(savedFeeds);
@@ -151,6 +156,15 @@ export function useFeeds() {
       await selectFeed(updatedFeeds[0] || null);
     }
   };
+  
+  const markPostAsRead = useCallback(async (guid: string) => {
+    if (readPostGuids.has(guid)) return; // Already read, do nothing
+    
+    const newReadPostGuids = new Set(readPostGuids);
+    newReadPostGuids.add(guid);
+    setReadPostGuids(newReadPostGuids);
+    await storage.saveReadPostGuids(Array.from(newReadPostGuids));
+  }, [readPostGuids]);
 
-  return { feeds, selectedFeed, posts, loading, error, isDataStale, refreshingFeedUrl, selectFeed, addFeed, removeFeed, importFromOPML, refreshFeed };
+  return { feeds, selectedFeed, posts, loading, error, isDataStale, refreshingFeedUrl, readPostGuids, selectFeed, addFeed, removeFeed, importFromOPML, refreshFeed, markPostAsRead };
 }

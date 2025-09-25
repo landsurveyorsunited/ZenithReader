@@ -4,10 +4,10 @@ import type { Post } from '../types/feed';
 interface PostCardProps {
   post: Post;
   onOpen: (post: Post) => void;
+  isRead: boolean;
 }
 
-// FIX: Refactored to use React.FC to resolve a JSX typing issue with the 'key' prop in App.tsx.
-const PostCard: React.FC<PostCardProps> = ({ post, onOpen }) => {
+const PostCard: React.FC<PostCardProps> = ({ post, onOpen, isRead }) => {
   const formattedDate = new Date(post.isoDate).toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'short',
@@ -16,7 +16,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onOpen }) => {
 
   return (
     <article 
-        className="flex flex-col bg-gray-800/60 rounded-xl overflow-hidden border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 ease-in-out transform hover:-translate-y-1 shadow-lg hover:shadow-blue-500/20"
+        className={`flex flex-col bg-gray-800/60 rounded-xl overflow-hidden border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 ease-in-out transform hover:-translate-y-1 shadow-lg hover:shadow-blue-500/20 ${isRead ? 'opacity-60 hover:opacity-100' : ''}`}
     >
       {post.firstImage && (
         <div className="h-40 w-full overflow-hidden">

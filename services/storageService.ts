@@ -13,6 +13,7 @@ const POST_CACHE_PREFIX = 'post_cache_';
 export const CACHE_TTL = 15 * 60 * 1000; // 15 minutes
 const DISPLAY_COUNT_KEY = 'display_count';
 const DEFAULT_DISPLAY_COUNT = 24;
+const READ_POSTS_KEY = 'read_posts_guids';
 
 
 interface CachedPosts {
@@ -64,4 +65,13 @@ export const setDisplayCount = (count: number): Promise<number> => {
 export const getDisplayCount = async (): Promise<number> => {
     const count = await localforage.getItem<number>(DISPLAY_COUNT_KEY);
     return count ?? DEFAULT_DISPLAY_COUNT;
+};
+
+// Read Posts Management
+export const saveReadPostGuids = (guids: string[]): Promise<string[]> => {
+    return localforage.setItem<string[]>(READ_POSTS_KEY, guids);
+};
+
+export const getReadPostGuids = async (): Promise<string[]> => {
+    return (await localforage.getItem<string[]>(READ_POSTS_KEY)) || [];
 };

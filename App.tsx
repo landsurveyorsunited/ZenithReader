@@ -18,11 +18,13 @@ export default function App() {
     error,
     isDataStale,
     refreshingFeedUrl,
+    readPostGuids,
     selectFeed,
     addFeed,
     removeFeed,
     importFromOPML,
     refreshFeed,
+    markPostAsRead,
   } = useFeeds();
 
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
@@ -52,6 +54,7 @@ export default function App() {
   };
 
   const handleOpenPost = (post: Post) => {
+    markPostAsRead(post.guid);
     setSelectedPost(post);
   };
 
@@ -201,7 +204,12 @@ export default function App() {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4 md:gap-6 md:p-6">
         {postsToDisplay.map((post) => (
-          <PostCard key={post.guid} post={post} onOpen={handleOpenPost} />
+          <PostCard 
+            key={post.guid} 
+            post={post} 
+            onOpen={handleOpenPost} 
+            isRead={readPostGuids.has(post.guid)}
+          />
         ))}
       </div>
     );

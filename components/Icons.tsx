@@ -52,7 +52,7 @@ export const ShareIcon: React.FC<IconProps> = (props) => (
   </svg>
 );
 
-export const TwitterIcon: React.FC<IconProps> = (props) => (
+export const XIcon: React.FC<IconProps> = (props) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
 );
 
@@ -62,6 +62,10 @@ export const FacebookIcon: React.FC<IconProps> = (props) => (
 
 export const LinkedInIcon: React.FC<IconProps> = (props) => (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-11.5 5.5v8h-3v-8h3zm-1.5-2.25a1.75 1.75 0 1 0 0-3.5 1.75 1.75 0 0 0 0 3.5zM17 9.75c-1.4 0-2.5 1.1-2.5 2.5v5.25h-3v-8h3v1.3c.7-1.2 2-1.3 2.8-1.3 2.2 0 3.2 1.8 3.2 4.2v3.8h-3.5v-3.25c0-.9-.3-1.5-1-1.5s-1 .6-1 1.5V18h-3v-5.25c0-1.4 1.1-2.5 2.5-2.5s2.5 1.1 2.5 2.5V18h3.5v-3.75c0-2.4-1-4.2-3.2-4.2z"/></svg>
+);
+
+export const RedditIcon: React.FC<IconProps> = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}><path d="M12 2.04c-5.5 0-9.96 4.46-9.96 9.96s4.46 9.96 9.96 9.96c5.5 0 9.96-4.46 9.96-9.96S17.5 2.04 12 2.04zm4.5 9.4c0 .8-.7 1.5-1.5 1.5s-1.5-.7-1.5-1.5c0-.8.7-1.5 1.5-1.5s1.5.7 1.5 1.5zm-6 0c0 .8-.7 1.5-1.5 1.5S7.5 12.24 7.5 11.44c0-.8.7-1.5 1.5-1.5s1.5.7 1.5 1.5zm3.7 3.5c-.5.5-1.2.8-2.2.8s-1.7-.3-2.2-.8c-.2-.2-.5-.2-.7 0s-.2.5 0 .7c.6.6 1.6 1 2.9 1s2.3-.4 2.9-1c.2-.2.2-.5 0-.7s-.5-.2-.7 0z"/></svg>
 );
 
 export const LinkIcon: React.FC<IconProps> = (props) => (
